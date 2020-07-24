@@ -9,7 +9,9 @@ class Root extends React.Component {
   render() {
     return (
       <div>
-        <h1>Petful</h1>
+        <Link to='/' className='home-link'>
+          <h1>Petful</h1>
+        </Link>
         <Route path='/' component={Home} exact />
         <Route
           path='/adoption'
