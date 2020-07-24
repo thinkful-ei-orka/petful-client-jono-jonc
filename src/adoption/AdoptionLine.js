@@ -4,22 +4,29 @@ import config from '../config';
 export default class AdoptionList extends React.Component {
   state = {
     isLoading: true,
-    person: {
-      name: '',
-      hasAdopted: false,
-    },
+    people: [],
   };
-  removePerson = (name) => {
-    fetch(`${config.REACT_APP_API_ENDPOINT}/people/${name}`);
-    this.getPeople();
+  removePerson = () => {
+    fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+      method: 'DELETE',
+    }).then(() => {
+      return this.setState({ people: this.state.people - 1 });
+    });
   };
 
   componentDidMount = () => {
     this.getPeople();
-    // this.timerId = setTimeout(() => {
+    // this.timerId = setInterval(() => {
+    //   if (!this.state.people) {
+    //     clearInterval(this.timerId);
+    //   }
     //   this.removePerson();
     // }, 2000);
   };
+  componentWillUnmount = () => {
+    clearInterval(this.timerId);
+  };
+
   getPeople = () => {
     fetch(`${config.REACT_APP_API_ENDPOINT}/people`)
       .then((res) => {
