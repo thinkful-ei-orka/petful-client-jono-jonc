@@ -4,13 +4,18 @@ import config from '../config';
 class Dog extends React.Component {
     state = {
         dog: null,
-        isLoading: true
+        isLoading: true,
+        isAdopted: false
     };
     
     componentDidMount = () => {
         this.getDog();
     };
     
+    componentWillUnmount = () => {
+        clearTimeout(this.timerId)
+    }
+
     getDog = () => {
         fetch(config.REACT_APP_API_ENDPOINT)
         .then(res => {
@@ -22,7 +27,8 @@ class Dog extends React.Component {
         .then(resJson => {
             this.setState({
                 dog: resJson.dog,
-                isLoading: false
+                isLoading: false,
+                isAdopted: false
             })
         })
         .catch(error => {
@@ -30,9 +36,35 @@ class Dog extends React.Component {
         });
     };
 
+    handleAdoptButton = () => {
+        fetch(`${config.REACT_APP_API_ENDPOINT}/dog`, {
+            method: 'DELETE'
+        })
+            .then(() => {
+                this.setState({
+                    isAdopted: true
+                })
+                this.timerId = setTimeout(() => {
+                    this.getDog()
+                },
+                2000)
+            })
+            .catch(error => {
+                console.error({ error })
+            });
+    }
+
     render() {
         if(this.state.isLoading) {
             return <div></div>
+        }
+        if (this.state.isAdopted) {
+            return (
+                <div className='dog-display is-adpoted'>
+                    <h1>Was Adopted</h1>
+                    <p>New dog incoming</p>
+                </div>
+            )
         }
         return (
             <div className='dog-display'>
@@ -43,7 +75,7 @@ class Dog extends React.Component {
                 <p><strong>Age:</strong> {this.state.dog.age}  yrs</p>
                 <p><strong>Breed:</strong> {this.state.dog.breed} </p>
                 <p><strong>Fluffy's story:</strong> {this.state.dog.story} </p>
-                <button>Adopt</button>
+                <button onClick={this.handleAdoptButton}>Adopt</button>
             </div>
         );
     };

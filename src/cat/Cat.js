@@ -13,6 +13,10 @@ class Cat extends React.Component {
         this.getCat();
     };
 
+    componentWillUnmount = () => {
+        clearTimeout(this.timerId)
+    }
+
     getCat = () => {
         fetch(config.REACT_APP_API_ENDPOINT)
             .then(res => {
@@ -25,6 +29,7 @@ class Cat extends React.Component {
                 this.setState({
                     cat: resJson.cat,
                     isLoading: false,
+                    isAdopted: false
                 })
             })
             .catch(error => {
@@ -40,6 +45,10 @@ class Cat extends React.Component {
                 this.setState({
                     isAdopted: true
                 })
+                this.timerId = setTimeout(() => {
+                    this.getCat()
+                },
+                2000)
             })
             .catch(error => {
                 console.error({ error })
@@ -54,6 +63,7 @@ class Cat extends React.Component {
             return (
                 <div className='cat-display is-adpoted'>
                     <h1>Was Adopted</h1>
+                    <p>New cat incoming</p>
                 </div>
             )
         }
@@ -66,7 +76,7 @@ class Cat extends React.Component {
                 <p><strong>Age:</strong> {this.state.cat.age} yrs</p>
                 <p><strong>Breed:</strong> {this.state.cat.breed}</p>
                 <p><strong>Fluffy's story:</strong> {this.state.cat.story}</p>
-                <button onClick={() => this.handleAdoptButton()}>Adopt</button>
+                <button onClick={this.handleAdoptButton}>Adopt</button>
             </div>
         );
     };
