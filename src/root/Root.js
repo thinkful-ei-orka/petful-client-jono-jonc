@@ -4,6 +4,7 @@ import Cat from '../cat/Cat';
 import Dog from '../dog/Dog';
 import AdoptionList from '../adoption/AdoptionLine';
 import Home from '../home/Home';
+import Form from '../form/Form';
 
 class Root extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class Root extends React.Component {
                 <div className='adoption-line'>
                   <AdoptionList />
                 </div>
+                <Form />
                 <div className='adoption'>
                   <Cat />
                   <Dog />
