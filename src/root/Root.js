@@ -7,6 +7,8 @@ function Root() {
   return (
     <div>
       <h1>Petful</h1>
+      <div className='adoption-line'>
+      </div>
       <div className='adoption'>
         <Cat />
         <Dog />
