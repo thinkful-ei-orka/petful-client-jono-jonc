@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Route } from 'react-router-dom';
 import Cat from '../cat/Cat';
 import Dog from '../dog/Dog';
+import adoptionList from '../adoption/adoptionLine';
 import Home from '../home/Home';
 
 class Root extends React.Component {
