@@ -11,6 +11,8 @@ function Root() {
         <Cat />
         <Dog />
       </div>
+      <h2 className='adopt-both'>Be a hero, adopt both!</h2>
+      <button className='adopt-both-button'>Adopt Both</button>
     </div>
   );
 };
