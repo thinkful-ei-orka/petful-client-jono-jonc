@@ -1,20 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import Cat from '../cat/Cat';
+import Dog from '../dog/Dog';
 
 function Root() {
   return (
-  <div>
-    <h1>Petful</h1>
-    <div className='cat-display'>
-      <h2>Cat</h2>
-      <p><strong>Name:</strong> Fluffy</p>
-      <p><strong>Gender:</strong> Female</p>
-      <p><strong>Age:</strong> 2 yrs</p>
-      <p><strong>Breed:</strong> Bengal</p>
-      <p><strong>Fluffy's story:</strong> Thrown on the street</p>
-      <button>Adopt</button>
+    <div>
+      <h1>Petful</h1>
+      <div className='adoption'>
+        <Cat />
+        <Dog />
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default Root
+export default withRouter(Root);
