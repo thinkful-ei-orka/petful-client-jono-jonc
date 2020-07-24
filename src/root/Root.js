@@ -2,13 +2,15 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Cat from '../cat/Cat';
 import Dog from '../dog/Dog';
-import adoptionList from '../adoption/adoptionLine';
+import AdoptionList from '../adoption/AdoptionLine';
 
 function Root() {
   return (
     <div>
       <h1>Petful</h1>
-      <div className='adoption-line'></div>
+      <div className='adoption-line'>
+        <AdoptionList />
+      </div>
       <div className='adoption'>
         <Cat />
         <Dog />
