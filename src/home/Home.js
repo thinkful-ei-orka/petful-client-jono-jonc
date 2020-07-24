@@ -10,7 +10,9 @@ function Home(props) {
                 in the line. Once you reach the front of the line it is your turn to adopt! You will
                 have the option to adopt either animal you see or both!
             </p>
-            <button className='get-started-button'>Get Started!</button>
+            <button className='get-started-button' onClick={() => {
+                props.history.push('/adoption')
+            }}>Get Started!</button>
         </div>
     )
 }

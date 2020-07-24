@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Route } from 'react-router-dom';
+import { withRouter, Route, Link } from 'react-router-dom';
 import Cat from '../cat/Cat';
 import Dog from '../dog/Dog';
 import adoptionList from '../adoption/adoptionLine';
@@ -9,12 +9,13 @@ class Root extends React.Component {
   render() {
     return (
       <div>
-        <h1>Petful</h1>
+        <Link to='/' className='home-link'>
+          <h1>Petful</h1>
+        </Link>
         <Route path='/' component={Home} exact/>
         <Route path='/adoption' render={() => {
           return (
             <div>
-              
               <div className='adoption-line'>
               </div>
               <div className='adoption'>
@@ -30,7 +31,6 @@ class Root extends React.Component {
       </div>
     );
   }
-
 };
 
 export default withRouter(Root);
