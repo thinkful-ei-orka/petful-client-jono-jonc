@@ -7,24 +7,24 @@ export default class AdoptionList extends React.Component {
     people: [],
   };
   removePerson = () => {
+    if (this.state.people < 1) {
+      clearInterval(this.timerId);
+      console.log(`component unmounted`);
+    }
     fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
       method: 'DELETE',
     }).then(() => {
-      return this.setState({ people: this.state.people - 1 });
+      this.setState({ people: this.state.people - 1 });
     });
   };
 
   componentDidMount = () => {
     this.getPeople();
-    // this.timerId = setInterval(() => {
-    //   if (!this.state.people) {
-    //     clearInterval(this.timerId);
-    //   }
-    //   this.removePerson();
-    // }, 2000);
+    this.timerId = setInterval(this.removePerson(), 5000);
   };
   componentWillUnmount = () => {
     clearInterval(this.timerId);
+    console.log(`component unmounted`);
   };
 
   getPeople = () => {
@@ -41,7 +41,23 @@ export default class AdoptionList extends React.Component {
     if (this.state.isLoading) {
       return <div>loading...</div>;
     }
+    console.log(this.state);
 
+    // while (this.state.people) {
+    //   if (this.state.people <= 0) {
+    //     clearTimeout(this.timerId);
+    //   }
+    //   this.timerId = setTimeout(() => {
+    //     this.removePerson();
+    //   }, 2000);
+    // }
+
+    // this.timerId = setInterval(() => {
+    //   if (!this.state.people) {
+    //     clearInterval(this.timerId);
+    //   }
+    //   this.removePerson();
+    // }, 2000);
     return (
       <>
         <ol>
