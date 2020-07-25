@@ -1,10 +1,17 @@
 import React from 'react';
 import config from '../config';
+import UserContext from '../UserContext';
+import AdoptionList from '../adoption/AdoptionLine';
 
 class Form extends React.Component {
+    state = {
+        userName: ''
+    }
     addToList = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         const name = event.target.userName.value;
+        event.target.userName.value = ''
+        this.setState({ userName: name })
         this.postPersonToLine(name);
     }
 
@@ -26,12 +33,20 @@ class Form extends React.Component {
     }
 
     render() {
+        console.log(this.state.userName)
         return (
-            <form className='add-person-form' onSubmit={this.addToList}>
-                <label htmlFor='userName'>Your Name:</label>
-                <input type='text' name='userName' required />
-                <button type='submit'>Get in Line</button>
-            </form>
+            <UserContext.Provider value={{
+                userName: this.state.userName
+            }}>
+                <div className='adoption-line'>
+                  <AdoptionList />
+                </div>
+                <form className='add-person-form' onSubmit={this.addToList}>
+                    <label htmlFor='userName'>Your Name:</label>
+                    <input type='text' name='userName' required />
+                    <button type='submit'>Get in Line</button>
+                </form>
+            </UserContext.Provider>
         )
     }
 }

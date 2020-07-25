@@ -19,9 +19,9 @@ class Root extends React.Component {
           render={() => {
             return (
               <div>
-                <div className='adoption-line'>
+                {/* <div className='adoption-line'>
                   <AdoptionList />
-                </div>
+                </div> */}
                 <Form />
                 <div className='adoption'>
                   <Cat />

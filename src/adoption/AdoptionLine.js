@@ -1,22 +1,32 @@
 import React from 'react';
 import config from '../config';
+import UserContext from '../UserContext';
 
 export default class AdoptionList extends React.Component {
   state = {
     isLoading: true,
     people: [],
   };
+  static contextType = UserContext;
 
   componentDidMount = () => {
     // this.getPeople();
+    this.listProcess()
+  };
+
+  listProcess = () => {
     this.timerId = setInterval(() => this.postPersonToLine(), 5000);
     this.timerId2 = setInterval(() => this.removePerson(), 5000);
     this.timerId3 = setInterval(() => this.getPeople(), 2000);
-  };
+  }
 
-
-  componentWillUnmount = () => {
+  clearTimers = () => {
     clearInterval(this.timerId);
+    clearInterval(this.timerId2);
+    clearInterval(this.timerId3);
+  }
+  componentWillUnmount = () => {
+    this.clearTimers()
     console.log(`component unmounted`);
   };
 
@@ -29,7 +39,7 @@ export default class AdoptionList extends React.Component {
       method: 'DELETE',
     }).then(() => {
       this.setState({ isLoading: false });
-      this.getPeople()
+      // this.getPeople()
     });
   };
 
@@ -57,11 +67,15 @@ export default class AdoptionList extends React.Component {
         return res.json();
       })
       .then((data) => {
+        if(data[0] === this.context.userName) {
+          this.clearTimers()
+        }
         this.setState({ people: data, isLoading: false });
       });
   };
 
   render() {
+    console.log(this.context.userName)
     if (this.state.isLoading) {
       return <div>loading...</div>;
     }
