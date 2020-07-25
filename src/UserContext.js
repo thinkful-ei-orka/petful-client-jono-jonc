@@ -1,7 +1,8 @@
 import React from 'react';
 
-const UserContext = React.createContext({
-    userName: ''
+export default React.createContext({
+  userName: '',
+  isLoading: true,
+  people: [],
+  canAdopt: false,
 });
-
-export default UserContext;

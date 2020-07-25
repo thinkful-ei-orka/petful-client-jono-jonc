@@ -1,119 +1,125 @@
 * {
-    box-sizing: border-box;
-    font-family: 'Comic Neue', cursive;
+  box-sizing: border-box;
+  font-family: 'Comic Neue', cursive;
+}
+
+.hidden {
+  display: none;
 }
 
 h1 {
-    text-align: center;
-    margin: 50px;
-    margin-bottom: 50px;
+  text-align: center;
+  margin: 50px;
+  margin-bottom: 50px;
 }
 
 .home-link {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .home-link:visited {
-    color: black;
+  color: black;
 }
 
 img {
-    width: 250px;
-    height: 150px;
+  width: 250px;
+  height: 150px;
 }
 
-
 .adopt-both {
-    text-align: center;
+  text-align: center;
 }
 
 .adopt-both-button {
-    width: 200px;
-    height: 50px;
-    text-align: center; 
-    position: absolute; 
-    margin-left: auto; 
-    margin-right: auto; 
-    left: 0; 
-    right: 0;
-    margin-bottom: 15px;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  margin-bottom: 15px;
 }
 
 .adoption {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
 }
 
-.cat-display, .dog-display {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid black;
-    margin: 15px;
-    padding: 15px;
+.cat-display,
+.dog-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+  margin: 15px;
+  padding: 15px;
 }
 
 .home-page {
-    width: 90%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 20px;
-    line-height: 2;
+  width: 90%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  line-height: 2;
 }
 
 .get-started-button {
-    width: 200px;
-    height: 50px;
-    text-align: center; 
-    position: absolute; 
-    margin-left: auto; 
-    margin-right: auto; 
-    left: 0; 
-    right: 0;
-    margin-bottom: 20px;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  margin-bottom: 20px;
 }
 
 .welcome-message {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 @media only screen and (min-width: 600px) {
-    .cat-display, .dog-display {
-        width: 75%;
-    }
+  .cat-display,
+  .dog-display {
+    width: 75%;
+  }
 }
 
 @media only screen and (min-width: 800px) {
-    .cat-display, .dog-display {
-        width: 60%;
-    }
-    img {
-        height: 200px;
-        width: 300px
-    }
+  .cat-display,
+  .dog-display {
+    width: 60%;
+  }
+  img {
+    height: 200px;
+    width: 300px;
+  }
 }
 
 @media only screen and (min-width: 1100px) {
-    .cat-display, .dog-display {
-        width: 50%;
-    }
-    
+  .cat-display,
+  .dog-display {
+    width: 50%;
+  }
 }
 
 @media only screen and (min-width: 1300px) {
-    .adoption {
-        flex-direction: row;
-    }
-    
+  .adoption {
+    flex-direction: row;
+  }
 }
 
 @media only screen and (min-width: 1600px) {
-    .cat-display, .dog-display {
-        width: 40%;
-    }
+  .cat-display,
+  .dog-display {
+    width: 40%;
+  }
 }

@@ -1,34 +1,45 @@
 import React from 'react';
 import config from '../config';
 import UserContext from '../UserContext';
+import Form from '../form/Form';
 
 export default class AdoptionList extends React.Component {
-  state = {
-    isLoading: true,
-    people: [],
-  };
   static contextType = UserContext;
 
-  componentDidMount = () => {
-    // this.getPeople();
-    this.listProcess()
+  listProcess = () => {
+    // if (this.context.isInline == false) {
+    //   return;
+    // }
+    this.timerId1 = setInterval(() => this.postPersonToLine(), 5000);
+    this.timerId2 = setInterval(() => this.removePerson(), 5000);
+    // this.timerId3 = setInterval(() => this.getPeople(), 2000);
   };
 
-  listProcess = () => {
-    this.timerId = setInterval(() => this.postPersonToLine(), 5000);
-    this.timerId2 = setInterval(() => this.removePerson(), 5000);
-    this.timerId3 = setInterval(() => this.getPeople(), 2000);
+  componentDidMount() {
+    this.listProcess();
   }
 
   clearTimers = () => {
-    clearInterval(this.timerId);
+    clearInterval(this.timerId1);
     clearInterval(this.timerId2);
     clearInterval(this.timerId3);
-  }
+  };
+
+  // componentDidMount() {
+  //   if (this.context.isInline) {
+  //     this.listProcess();
+  //   }
+  // }
+
+  // componentDidUpdate() {
+  //   this.listProcess();
+  // }
   componentWillUnmount = () => {
-    this.clearTimers()
+    this.clearTimers();
     console.log(`component unmounted`);
   };
+
+  randomAdoption = () => {};
 
   removePerson = () => {
     // if (this.state.people < 1) {
@@ -37,29 +48,32 @@ export default class AdoptionList extends React.Component {
     // }
     fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
       method: 'DELETE',
-    }).then(() => {
-      this.setState({ isLoading: false });
-      // this.getPeople()
-    });
+    })
+      .then(() => this.context.adoptButtonHandler())
+      .then(() => this.getPeople());
+
+    //   .then(() => {
+    //   this.context.setContext({ isLoading: false });
+    //   // this.getPeople()
+    // });
   };
 
   postPersonToLine = () => {
-    let num = Math.floor(Math.random() * 50)
+    let num = Math.floor(Math.random() * 50);
     const newUser = {
-      name: `Test${num}`
-    }
-    const userString = JSON.stringify(newUser)
+      name: `Test${num}`,
+    };
+    const userString = JSON.stringify(newUser);
     fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
-      body: userString
-    })
-      .catch((error) => {
-        console.error({ error });
-      });
-  }
+      body: userString,
+    }).catch((error) => {
+      console.error({ error });
+    });
+  };
 
   getPeople = () => {
     fetch(`${config.REACT_APP_API_ENDPOINT}/people`)
@@ -67,18 +81,22 @@ export default class AdoptionList extends React.Component {
         return res.json();
       })
       .then((data) => {
-        if(data[0] === this.context.userName) {
-          this.clearTimers()
+        if (data[0] === this.context.userName) {
+          this.clearTimers();
+          this.context.setContext({ isNextInline: true });
         }
-        this.setState({ people: data, isLoading: false });
+        this.context.setContext({ people: data, isLoading: false });
       });
   };
 
   render() {
-    console.log(this.context.userName)
-    if (this.state.isLoading) {
+    console.log(this.context.userName);
+
+    console.log(this.context.people);
+    if (this.context.isLoading) {
       return <div>loading...</div>;
     }
+
     // while (this.state.people) {
     //   if (this.state.people <= 0) {
     //     clearTimeout(this.timerId);
@@ -97,10 +115,11 @@ export default class AdoptionList extends React.Component {
     return (
       <>
         <ol>
-          {this.state.people.map((person) => (
+          {this.context.people.map((person) => (
             <li key={person}>{person}</li>
           ))}
         </ol>
+        <Form />
       </>
     );
   }
