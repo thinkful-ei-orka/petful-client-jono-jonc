@@ -39,8 +39,30 @@ export default class AdoptionList extends React.Component {
     console.log(`component unmounted`);
   };
 
-  randomAdoption = () => {};
+  randomAdoption = (animal) => {
+    fetch(`${config.REACT_APP_API_ENDPOINT}/pets/${animal}`, {
+      method: 'DELETE',
+    })
+    .then(() => {
+      if(animal === 'dog') {
+        this.context.setContext({
+        isDogAdopted: true,
+      });
+      }
+      else if (animal === 'cat') {
+        this.context.setContext({
+          isCatAdopted: true
+        })
+      }
+      
+    })
+      .catch((error) => {
+        console.error({ error });
+      });
+  };
 
+
+  
   removePerson = () => {
     // if (this.state.people < 1) {
     //   clearInterval(this.timerId);
@@ -49,7 +71,17 @@ export default class AdoptionList extends React.Component {
     fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
       method: 'DELETE',
     })
-      .then(() => this.context.adoptButtonHandler())
+      .then(() => {
+        let num = Math.floor(Math.random() * 2)
+        let ani = ''
+        if (num === 0) {
+          ani = 'dog'
+        }
+        else if(num === 1) {
+          ani = 'cat'
+        }
+        this.randomAdoption(ani)
+      })
       .then(() => this.getPeople());
 
     //   .then(() => {
