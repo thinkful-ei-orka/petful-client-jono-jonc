@@ -3,6 +3,10 @@ import config from '../config';
 import UserContext from '../UserContext';
 import Form from '../form/Form';
 
+function getRandNum() {
+  return Math.floor(Math.random() * 2);
+}
+
 export default class AdoptionList extends React.Component {
   static contextType = UserContext;
 
@@ -39,7 +43,16 @@ export default class AdoptionList extends React.Component {
     console.log(`component unmounted`);
   };
 
-  randomAdoption = () => {};
+  randomAdoption = () => {
+    let num = getRandNum();
+    if (getRandNum() == 1) {
+      this.context.handleDogAdoptButton();
+      console.log(getRandNum());
+    } else {
+      this.context.handleCatAdoptButton();
+      console.log(getRandNum());
+    }
+  };
 
   removePerson = () => {
     // if (this.state.people < 1) {
@@ -49,7 +62,7 @@ export default class AdoptionList extends React.Component {
     fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
       method: 'DELETE',
     })
-      .then(() => this.context.adoptButtonHandler())
+      .then(() => this.randomAdoption())
       .then(() => this.getPeople());
 
     //   .then(() => {
@@ -85,7 +98,10 @@ export default class AdoptionList extends React.Component {
           this.clearTimers();
           this.context.setContext({ isNextInline: true });
         }
-        this.context.setContext({ people: data, isLoading: false });
+        this.context.setContext({
+          people: data,
+          isLoading: false,
+        });
       });
   };
 

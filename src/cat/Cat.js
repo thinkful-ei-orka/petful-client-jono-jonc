@@ -1,6 +1,5 @@
 import React from 'react';
 import config from '../config';
-import context from '../UserContext';
 import UserContext from '../UserContext';
 
 class Cat extends React.Component {
@@ -55,7 +54,7 @@ class Cat extends React.Component {
     if (this.context.isLoading) {
       return <div>Loading</div>;
     }
-    if (this.context.isAdopted) {
+    if (this.context.isCatAdopted) {
       return (
         <div className='cat-display is-adpoted'>
           <h1>Was Adopted</h1>
