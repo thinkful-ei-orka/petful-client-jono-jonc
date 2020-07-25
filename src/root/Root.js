@@ -35,6 +35,11 @@ class Root extends React.Component {
       });
     });
   };
+  removeMe = () => {
+    fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+      method: 'DELETE',
+    });
+  };
 
   adoptDogButtonHandler = () => {
     return fetch(`${config.REACT_APP_API_ENDPOINT}/pets/dog`, {
@@ -47,6 +52,10 @@ class Root extends React.Component {
         this.timerId = setTimeout(() => {
           this.getPetHandler();
         }, 2000);
+      })
+      .then(() => {
+        if (this.context.isNextInline) this.setContext({ isNextInline: false });
+        this.removeMe();
       })
       .catch((error) => {
         console.error({ error });
@@ -63,6 +72,10 @@ class Root extends React.Component {
         this.timerId = setTimeout(() => {
           this.getPetHandler();
         }, 2000);
+      })
+      .then(() => {
+        if (this.context.isNextInline) this.setContext({ isNextInline: false });
+        this.removeMe();
       })
       .catch((error) => {
         console.error({ error });
