@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Root from '../root/Root';
 
 function Home(props) {
+<<<<<<< Updated upstream
     return (
         <div className='home-page'>
             <p className='welcome-message'> Welcome to Petful! Our adoption process is a bit different. As you move to the
@@ -11,13 +14,14 @@ function Home(props) {
             have the option to adopt either animal you see or both!
             </p>
             <div className='image-container'>
-                
+
             </div>
             <button className='get-started-button' onClick={() => {
                 props.history.push('/adoption')
             }}>Get Started!</button>
         </div>
     )
+
 }
 
 export default Home;

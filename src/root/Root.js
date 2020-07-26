@@ -8,6 +8,7 @@ import Form from '../form/Form';
 import UserContext from '../UserContext';
 import petService from '../petService';
 import config from '../config';
+import peopleService from '../peopleService';
 
 class Root extends React.Component {
   state = {
@@ -27,7 +28,7 @@ class Root extends React.Component {
 
   getPetHandler = () => {
     petService.getPetService().then((pets) => {
-      this.setState({
+      this.setContext({
         pets,
         isLoading: false,
         isDogAdopted: false,
@@ -35,12 +36,50 @@ class Root extends React.Component {
       });
     });
   };
+  getPeople = () => {
+    return fetch(`${config.REACT_APP_API_ENDPOINT}/people`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        if (data[0] === this.context.userName) {
+          this.clearTimers();
+          this.setContext({ isNextInline: true });
+        }
+        this.setContext({
+          people: data,
+          isLoading: false,
+          isNextInline: false,
+        });
+      });
+  };
   removeMe = () => {
-    fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+    return fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
       method: 'DELETE',
     });
   };
-
+  //TODO: figureout how to remove me and refresh page after adopt button clicked. could just make specific function for the button vs random
+  // removePeople = () => {
+  //   return fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+  //     method: 'DELETE',
+  //   }).then(() => this.getPeople());
+  // };
+  // postPersonToLine = () => {
+  //   let num = Math.floor(Math.random() * 50);
+  //   const newUser = {
+  //     name: `Test${num}`,
+  //   };
+  //   const userString = JSON.stringify(newUser);
+  //   fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     },
+  //     body: userString,
+  //   }).catch((error) => {
+  //     console.error({ error });
+  //   });
+  // };
   adoptDogButtonHandler = () => {
     return fetch(`${config.REACT_APP_API_ENDPOINT}/pets/dog`, {
       method: 'DELETE',
@@ -52,11 +91,11 @@ class Root extends React.Component {
         this.timerId = setTimeout(() => {
           this.getPetHandler();
         }, 2000);
+        // if (this.state.isNextInline == true) {
+        //   this.removeMe().then(() => this.getPeople());
+        // }
       })
-      .then(() => {
-        if (this.context.isNextInline) this.setContext({ isNextInline: false });
-        this.removeMe();
-      })
+
       .catch((error) => {
         console.error({ error });
       });
@@ -68,15 +107,16 @@ class Root extends React.Component {
       .then(() => {
         this.setContext({
           isCatAdopted: true,
+          // isNextInline: false,
         });
         this.timerId = setTimeout(() => {
           this.getPetHandler();
         }, 2000);
+        // if (this.state.isNextInline == true) {
+        //   this.removeMe().then(() => this.getPeople());
+        // }
       })
-      .then(() => {
-        if (this.context.isNextInline) this.setContext({ isNextInline: false });
-        this.removeMe();
-      })
+
       .catch((error) => {
         console.error({ error });
       });
@@ -94,6 +134,8 @@ class Root extends React.Component {
       setContext: this.setContext,
       handleDogAdoptButton: this.adoptDogButtonHandler,
       handleCatAdoptButton: this.adoptCatButtonHandler,
+      removePeople: this.removePeople,
+      postPersonToLine: this.postPersonToLine,
     };
     return (
       <UserContext.Provider value={value}>

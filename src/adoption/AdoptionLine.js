@@ -14,8 +14,11 @@ export default class AdoptionList extends React.Component {
     // if (this.context.isInline == false) {
     //   return;
     // }
-    this.timerId1 = setInterval(() => this.postPersonToLine(), 5000);
-    this.timerId2 = setInterval(() => this.removePerson(), 5000);
+    if (this.context.isNextInline == false) {
+      this.timerId1 = setInterval(() => this.postPersonToLine(), 5000);
+      this.timerId2 = setInterval(() => this.removePerson(), 5000);
+    }
+
     // this.timerId3 = setInterval(() => this.getPeople(), 2000);
   };
 
@@ -59,11 +62,22 @@ export default class AdoptionList extends React.Component {
     //   clearInterval(this.timerId);
     //   console.log(`component unmounted`);
     // }
-    fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
-      method: 'DELETE',
-    })
-      .then(() => this.randomAdoption())
-      .then(() => this.getPeople());
+    return (
+      fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+        method: 'DELETE',
+      })
+        // .then(() => {
+        //   if (data[0] !== this.context.userName) {
+        //     this.randomAdoption();
+        //   }
+        // })
+        .then(() => {
+          if (this.context.isNextInline == false && !this.timerId1) {
+            this.listProcess();
+          }
+          this.getPeople();
+        })
+    );
 
     //   .then(() => {
     //   this.context.setContext({ isLoading: false });
@@ -89,7 +103,7 @@ export default class AdoptionList extends React.Component {
   };
 
   getPeople = () => {
-    fetch(`${config.REACT_APP_API_ENDPOINT}/people`)
+    return fetch(`${config.REACT_APP_API_ENDPOINT}/people`)
       .then((res) => {
         return res.json();
       })
