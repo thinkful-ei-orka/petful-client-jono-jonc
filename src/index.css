@@ -27,6 +27,11 @@ img {
   height: 150px;
 }
 
+.screenshot {
+  border: 2px solid black;
+  height: 200px;
+}
+
 .adopt-both {
   text-align: center;
 }
@@ -102,6 +107,10 @@ img {
     height: 200px;
     width: 300px;
   }
+  .screenshot {
+    height: 250px;
+    width: 350px;
+  }
 }
 
 @media only screen and (min-width: 1100px) {
@@ -115,11 +124,19 @@ img {
   .adoption {
     flex-direction: row;
   }
+  .screenshot {
+    height: 350px;
+    width: 450px;
+  }
 }
 
 @media only screen and (min-width: 1600px) {
   .cat-display,
   .dog-display {
     width: 40%;
+  }
+  .screenshot {
+    height: 450px;
+    width: 550px;
   }
 }

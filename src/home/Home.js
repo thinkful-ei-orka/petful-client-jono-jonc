@@ -15,7 +15,9 @@ function Home(props) {
         reach the front of the line it is your turn to adopt! You will have the
         option to adopt either animal you see or both!
       </p>
-      <div className='image-container'></div>
+      <div className='image-container'>
+        <img src='./../../images/petful-adopt-2.jpg' alt='adoption' className='screenshot'/>
+      </div>
       <button
         className='get-started-button'
         onClick={() => {
