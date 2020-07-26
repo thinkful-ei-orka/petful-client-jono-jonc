@@ -91,9 +91,9 @@ class Root extends React.Component {
         this.timerId = setTimeout(() => {
           this.getPetHandler();
         }, 2000);
-        // if (this.state.isNextInline == true) {
-        //   this.removeMe().then(() => this.getPeople());
-        // }
+        if (this.state.isNextInline == true) {
+          this.removeMe().then(() => this.getPeople());
+        }
       })
 
       .catch((error) => {
@@ -112,9 +112,32 @@ class Root extends React.Component {
         this.timerId = setTimeout(() => {
           this.getPetHandler();
         }, 2000);
-        // if (this.state.isNextInline == true) {
-        //   this.removeMe().then(() => this.getPeople());
-        // }
+        if (this.state.isNextInline == true) {
+          this.removeMe().then(() => this.getPeople());
+        }
+      })
+
+      .catch((error) => {
+        console.error({ error });
+      });
+  };
+
+  adoptBothButtonHandler = () => {
+    return fetch(`${config.REACT_APP_API_ENDPOINT}/pets/both`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        this.setContext({
+          isCatAdopted: true,
+          isDogAdopted: true,
+          // isNextInline: false,
+        });
+        this.timerId = setTimeout(() => {
+          this.getPetHandler();
+        }, 2000);
+        if (this.state.isNextInline == true) {
+          this.removeMe().then(() => this.getPeople());
+        }
       })
 
       .catch((error) => {
@@ -157,13 +180,14 @@ class Root extends React.Component {
                     <Cat />
                     <Dog />
                   </div>
-                  <h2 className='adopt-both'>Be a hero, adopt both!</h2>
-                  <button
-                    className={
-                      this.context.isNextInline ? 'adopt-both-button' : 'hidden'
-                    }>
-                    Adopt Both
-                  </button>
+                  <div className={this.state.isNextInline ? '' : 'hidden'}>
+                    <h2 className={'adopt-both'}>Be a hero, adopt both!</h2>
+                    <button
+                      className={'adopt-both-button'}
+                      onClick={() => this.adoptBothButtonHandler()}>
+                      Adopt Both
+                    </button>
+                  </div>
                 </div>
               );
             }}

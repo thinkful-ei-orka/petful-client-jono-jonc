@@ -75,6 +75,7 @@ export default class AdoptionList extends React.Component {
           if (this.context.isNextInline == false && !this.timerId1) {
             this.listProcess();
           }
+          this.randomAdoption();
           this.getPeople();
         })
     );
