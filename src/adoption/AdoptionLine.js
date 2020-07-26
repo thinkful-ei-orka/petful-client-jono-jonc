@@ -72,9 +72,6 @@ export default class AdoptionList extends React.Component {
         //   }
         // })
         .then(() => {
-          if (this.context.isNextInline == false && !this.timerId1) {
-            this.listProcess();
-          }
           this.randomAdoption();
           this.getPeople();
         })
@@ -98,9 +95,11 @@ export default class AdoptionList extends React.Component {
         'content-type': 'application/json',
       },
       body: userString,
-    }).catch((error) => {
-      console.error({ error });
-    });
+    })
+      .then(() => this.getPeople())
+      .catch((error) => {
+        console.error({ error });
+      });
   };
 
   getPeople = () => {
@@ -109,14 +108,14 @@ export default class AdoptionList extends React.Component {
         return res.json();
       })
       .then((data) => {
-        if (data[0] === this.context.userName) {
-          this.clearTimers();
-          this.context.setContext({ isNextInline: true });
-        }
         this.context.setContext({
           people: data,
           isLoading: false,
         });
+        if (data[0] === this.context.userName) {
+          this.clearTimers();
+          this.context.setContext({ isNextInline: true });
+        }
       });
   };
 
