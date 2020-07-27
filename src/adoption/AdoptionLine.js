@@ -14,10 +14,12 @@ export default class AdoptionList extends React.Component {
     // if (this.context.isInline == false) {
     //   return;
     // }
-    if (this.context.isNextInline == false) {
-      this.timerId1 = setInterval(() => this.postPersonToLine(), 5000);
-      this.timerId2 = setInterval(() => this.removePerson(), 5000);
+    if (this.context.isNextInline == true) {
+      console.log('next in line true');
+      return;
     }
+    this.timerId1 = setInterval(() => this.postPersonToLine(), 5000);
+    this.timerId2 = setInterval(() => this.removePerson(), 5000);
 
     // this.timerId3 = setInterval(() => this.getPeople(), 2000);
   };
@@ -58,24 +60,19 @@ export default class AdoptionList extends React.Component {
   };
 
   removePerson = () => {
+    if (this.context.isNextInline == true) {
+      return this.clearTimers();
+    }
     // if (this.state.people < 1) {
     //   clearInterval(this.timerId);
     //   console.log(`component unmounted`);
     // }
-    return (
-      fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
-        method: 'DELETE',
-      })
-        // .then(() => {
-        //   if (data[0] !== this.context.userName) {
-        //     this.randomAdoption();
-        //   }
-        // })
-        .then(() => {
-          this.randomAdoption();
-          this.getPeople();
-        })
-    );
+    return fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+      method: 'DELETE',
+    }).then(() => {
+      this.randomAdoption();
+      this.getPeople();
+    });
 
     //   .then(() => {
     //   this.context.setContext({ isLoading: false });

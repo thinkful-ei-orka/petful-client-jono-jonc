@@ -4,11 +4,9 @@ import Cat from '../cat/Cat';
 import Dog from '../dog/Dog';
 import AdoptionList from '../adoption/AdoptionLine';
 import Home from '../home/Home';
-import Form from '../form/Form';
 import UserContext from '../UserContext';
 import petService from '../petService';
 import config from '../config';
-import peopleService from '../peopleService';
 
 class Root extends React.Component {
   state = {
@@ -42,11 +40,6 @@ class Root extends React.Component {
         return res.json();
       })
       .then((data) => {
-        // if (data[0] === this.context.userName) {
-        //   this.clearTimers();
-        //   this.setContext({ isNextInline: true });
-        // }        if (this.userName && this.isNextInline) {
-
         this.setContext({
           people: data,
           isLoading: false,
@@ -62,28 +55,7 @@ class Root extends React.Component {
       this.getPeople().then(() => this.setContext({ isNextInline: false }))
     );
   };
-  //TODO: figureout how to remove me and refresh page after adopt button clicked. could just make specific function for the button vs random
-  // removePeople = () => {
-  //   return fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
-  //     method: 'DELETE',
-  //   }).then(() => this.getPeople());
-  // };
-  // postPersonToLine = () => {
-  //   let num = Math.floor(Math.random() * 50);
-  //   const newUser = {
-  //     name: `Test${num}`,
-  //   };
-  //   const userString = JSON.stringify(newUser);
-  //   fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //     },
-  //     body: userString,
-  //   }).catch((error) => {
-  //     console.error({ error });
-  //   });
-  // };
+
   adoptDogButtonHandler = () => {
     return fetch(`${config.REACT_APP_API_ENDPOINT}/pets/dog`, {
       method: 'DELETE',
@@ -94,17 +66,17 @@ class Root extends React.Component {
           this.setContext({
             people: this.state.people.slice(1),
             isNextInline: false,
+            isDogAdopted: true,
           });
+          this.timerId = setTimeout(() => {
+            this.getPetHandler();
+          }, 2000);
+        } else {
+          this.setContext({ isDogAdopted: true });
+          this.timerId = setTimeout(() => {
+            this.getPetHandler();
+          }, 2000);
         }
-        this.setContext({
-          isDogAdopted: true,
-        });
-        this.timerId = setTimeout(() => {
-          this.getPetHandler();
-        }, 2000);
-        // if (this.state.isNextInline == true) {
-        //   this.removeMe().then(() => this.getPeople());
-        // }
       })
       .catch((error) => {
         console.error({ error });
@@ -120,21 +92,18 @@ class Root extends React.Component {
           this.setContext({
             people: this.state.people.slice(1),
             isNextInline: false,
+            isCatAdopted: true,
           });
+          this.timerId = setTimeout(() => {
+            this.getPetHandler();
+          }, 2000);
+        } else {
+          this.setContext({ isCatAdopted: true });
+          this.timerId = setTimeout(() => {
+            this.getPetHandler();
+          }, 2000);
         }
-        this.setContext({
-          isCatAdopted: true,
-          // isNextInline: false,
-        });
-        this.timerId = setTimeout(() => {
-          this.getPetHandler();
-        }, 2000);
-        // if (this.state.isNextInline == true) {
-        //   this.removeMe();
-        //   then(() => this.getPeople());
-        // }
       })
-
       .catch((error) => {
         console.error({ error });
       });
@@ -150,20 +119,18 @@ class Root extends React.Component {
           this.setContext({
             people: this.state.people.slice(1),
             isNextInline: false,
+            isDogAdopted: true,
+            isCatAdopted: true,
           });
+          this.timerId = setTimeout(() => {
+            this.getPetHandler();
+          }, 2000);
+        } else {
+          this.setContext({ isDogAdopted: true, isCatAdopted: true });
+          this.timerId = setTimeout(() => {
+            this.getPetHandler();
+          }, 2000);
         }
-        this.setContext({
-          isCatAdopted: true,
-          isDogAdopted: true,
-          // isNextInline: false,
-        });
-        this.timerId = setTimeout(() => {
-          this.getPetHandler();
-        }, 2000);
-
-        // if (this.state.isNextInline == true) {
-        //   this.removeMe().then(() => this.getPeople());
-        // }
       })
 
       .catch((error) => {
