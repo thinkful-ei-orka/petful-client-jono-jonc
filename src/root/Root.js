@@ -178,7 +178,10 @@ class Root extends React.Component {
                     <h2 className={'adopt-both'}>Be a hero, adopt both!</h2>
                     <button
                       className={'adopt-both-button'}
-                      onClick={() => this.adoptBothButtonHandler()}>
+                      onClick={() => {
+                        this.adoptBothButtonHandler();
+                        this.setContext({ userClicked: true });
+                      }}>
                       Adopt Both
                     </button>
                   </div>
