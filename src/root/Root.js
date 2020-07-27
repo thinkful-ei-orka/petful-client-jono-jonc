@@ -63,7 +63,6 @@ class Root extends React.Component {
     })
       .then(() => {
         if (this.state.userClicked) {
-          console.log('check was hit');
           this.setContext({
             people: this.state.people.slice(1),
             isNextInline: false,
@@ -89,7 +88,6 @@ class Root extends React.Component {
     })
       .then(() => {
         if (this.state.userClicked) {
-          console.log('check was hit');
           this.setContext({
             people: this.state.people.slice(1),
             isNextInline: false,
@@ -116,7 +114,6 @@ class Root extends React.Component {
     })
       .then(() => {
         if (this.state.userClicked) {
-          console.log('check was hit');
           this.setContext({
             people: this.state.people.slice(1),
             isNextInline: false,
@@ -138,10 +135,6 @@ class Root extends React.Component {
         console.error({ error });
       });
   };
-
-  // adoptButtonHandler = (type) => {
-  //   petService.adoptButtonHandler(type);
-  // };
 
   render() {
     const value = {

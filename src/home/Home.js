@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Root from '../root/Root';
+import petfuladopt2 from '../petful-adopt-2.jpg';
 
 function Home(props) {
   return (
@@ -16,7 +15,7 @@ function Home(props) {
         option to adopt either animal you see or both!
       </p>
       <div className='image-container'>
-        <img src='./../../images/petful-adopt-2.jpg' alt='adoption' className='screenshot'/>
+        <img src={petfuladopt2} alt='adoption' className='screenshot' />
       </div>
       <button
         className='get-started-button'

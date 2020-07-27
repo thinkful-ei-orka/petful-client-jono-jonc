@@ -31,23 +31,14 @@ function Form(props) {
     });
   };
 
-  console.log(context.userName);
   return (
-    //   <UserContext.Provider
-    //     value={{
-    //       ...this.state,
-    //     }}>
     <>
-      {/* <div className='adoption-line'>
-          <AdoptionList />
-        </div> */}
       <form className='add-person-form' onSubmit={(e) => addToList(e)}>
         <label htmlFor='userName'>Your Name:</label>
         <input type='text' name='userName' required />
         <button type='submit'>Get in Line</button>
       </form>
     </>
-    //   </UserContext.Provider>
   );
 }
 

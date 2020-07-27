@@ -12,14 +12,11 @@ export default class AdoptionList extends React.Component {
 
   listProcess = () => {
     if (this.context.isNextInline == true) {
-      console.log('next in line true');
       this.clearTimers();
       return;
     }
     this.timerId1 = setInterval(() => this.postPersonToLine(), 5000);
     this.timerId2 = setInterval(() => this.removePerson(), 5000);
-
-    // this.timerId3 = setInterval(() => this.getPeople(), 2000);
   };
 
   componentDidMount() {
@@ -32,19 +29,6 @@ export default class AdoptionList extends React.Component {
     clearInterval(this.timerId3);
   };
 
-  // componentDidMount() {
-  //   if (this.context.isInline) {
-  //     this.listProcess();
-  //   }
-  // }
-
-  // componentDidUpdate() {
-  //   this.listProcess();
-  // }
-  // componentWillUnmount() {
-  //   this.clearTimers();
-  //   console.log(`component unmounted`);
-  // }
   componentDidUpdate() {
     if (this.context.isNextInline == true) {
       this.clearTimers();
@@ -54,10 +38,8 @@ export default class AdoptionList extends React.Component {
     let num = getRandNum();
     if (getRandNum() == 1) {
       this.context.handleDogAdoptButton();
-      console.log(getRandNum());
     } else {
       this.context.handleCatAdoptButton();
-      console.log(getRandNum());
     }
   };
 
@@ -65,21 +47,13 @@ export default class AdoptionList extends React.Component {
     if (this.context.isNextInline == true) {
       return this.clearTimers();
     }
-    // if (this.state.people < 1) {
-    //   clearInterval(this.timerId);
-    //   console.log(`component unmounted`);
-    // }
+
     return fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
       method: 'DELETE',
     }).then(() => {
       this.randomAdoption();
       this.getPeople();
     });
-
-    //   .then(() => {
-    //   this.context.setContext({ isLoading: false });
-    //   // this.getPeople()
-    // });
   };
 
   postPersonToLine = () => {
@@ -119,28 +93,10 @@ export default class AdoptionList extends React.Component {
   };
 
   render() {
-    console.log(this.context.userName);
-
-    console.log(this.context.people);
     if (!this.context.people) {
       return <div>loading...</div>;
     }
 
-    // while (this.state.people) {
-    //   if (this.state.people <= 0) {
-    //     clearTimeout(this.timerId);
-    //   }
-    //   this.timerId = setTimeout(() => {
-    //     this.removePerson();
-    //   }, 2000);
-    // }
-
-    // this.timerId = setInterval(() => {
-    //   if (!this.state.people) {
-    //     clearInterval(this.timerId);
-    //   }
-    //   this.removePerson();
-    // }, 2000);
     return (
       <>
         <ol>
