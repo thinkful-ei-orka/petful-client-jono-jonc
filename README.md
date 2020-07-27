@@ -1,4 +1,18 @@
+Jonathan Clark and Jon Oliver
+
+You can view the active app here: [Petful Project](https://petful2.vercel.app/)
+
 # Petful Client
+
+Welcome to Petful! Our adoption process is a bit different. As you move
+to the adoption page and submit your name you will be added to the back
+of the line. You will see one dog and one cat on the screen. As a pet
+gets adopted they will be removed from the screen and replaced with a
+new one. At this point you will be moved forward in the line. Once you
+reach the front of the line it is your turn to adopt! You will have the
+option to adopt either animal you see or both!
+
+======================
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -44,27 +58,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
