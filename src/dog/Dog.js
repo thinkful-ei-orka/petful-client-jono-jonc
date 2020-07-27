@@ -91,7 +91,10 @@ class Dog extends React.Component {
         </p>
         <button
           className={this.context.isNextInline ? '' : 'hidden'}
-          onClick={this.context.handleDogAdoptButton}>
+          onClick={() => {
+            this.context.setContext({ userClicked: true });
+            this.context.handleDogAdoptButton();
+          }}>
           Adopt
         </button>
       </div>

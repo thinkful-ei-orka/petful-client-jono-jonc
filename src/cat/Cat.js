@@ -83,7 +83,10 @@ class Cat extends React.Component {
         </p>
         <button
           className={this.context.isNextInline ? '' : 'hidden'}
-          onClick={this.context.handleCatAdoptButton}>
+          onClick={() => {
+            this.context.setContext({ userClicked: true });
+            this.context.handleCatAdoptButton();
+          }}>
           Adopt
         </button>
       </div>

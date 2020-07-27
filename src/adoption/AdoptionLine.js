@@ -11,11 +11,9 @@ export default class AdoptionList extends React.Component {
   static contextType = UserContext;
 
   listProcess = () => {
-    // if (this.context.isInline == false) {
-    //   return;
-    // }
     if (this.context.isNextInline == true) {
       console.log('next in line true');
+      this.clearTimers();
       return;
     }
     this.timerId1 = setInterval(() => this.postPersonToLine(), 5000);
@@ -43,11 +41,15 @@ export default class AdoptionList extends React.Component {
   // componentDidUpdate() {
   //   this.listProcess();
   // }
-  componentWillUnmount = () => {
-    this.clearTimers();
-    console.log(`component unmounted`);
-  };
-
+  // componentWillUnmount() {
+  //   this.clearTimers();
+  //   console.log(`component unmounted`);
+  // }
+  componentDidUpdate() {
+    if (this.context.isNextInline == true) {
+      this.clearTimers();
+    }
+  }
   randomAdoption = () => {
     let num = getRandNum();
     if (getRandNum() == 1) {
@@ -120,7 +122,7 @@ export default class AdoptionList extends React.Component {
     console.log(this.context.userName);
 
     console.log(this.context.people);
-    if (this.context.isLoading) {
+    if (!this.context.people) {
       return <div>loading...</div>;
     }
 

@@ -18,6 +18,7 @@ class Root extends React.Component {
     isNextInline: false,
     isDogAdopted: false,
     isCatAdopted: false,
+    userClicked: false,
   };
 
   setContext = (blank) => {
@@ -61,7 +62,7 @@ class Root extends React.Component {
       method: 'DELETE',
     })
       .then(() => {
-        if (this.state.isNextInline) {
+        if (this.state.userClicked) {
           console.log('check was hit');
           this.setContext({
             people: this.state.people.slice(1),
@@ -87,7 +88,7 @@ class Root extends React.Component {
       method: 'DELETE',
     })
       .then(() => {
-        if (this.state.isNextInline) {
+        if (this.state.userClicked) {
           console.log('check was hit');
           this.setContext({
             people: this.state.people.slice(1),
@@ -114,7 +115,7 @@ class Root extends React.Component {
       method: 'DELETE',
     })
       .then(() => {
-        if (this.state.isNextInline) {
+        if (this.state.userClicked) {
           console.log('check was hit');
           this.setContext({
             people: this.state.people.slice(1),
