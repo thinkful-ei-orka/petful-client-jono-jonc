@@ -146,6 +146,7 @@ class Root extends React.Component {
       handleCatAdoptButton: this.adoptCatButtonHandler,
       removePeople: this.removePeople,
       postPersonToLine: this.postPersonToLine,
+      getPeople: this.getPeople,
     };
     return (
       <UserContext.Provider value={value}>

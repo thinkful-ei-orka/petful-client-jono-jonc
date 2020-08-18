@@ -11,7 +11,7 @@ export default class AdoptionList extends React.Component {
   static contextType = UserContext;
 
   listProcess = () => {
-    if (this.context.isNextInline == true) {
+    if (this.context.isNextInline == true || this.context.people >= 5) {
       this.clearTimers();
       return;
     }
@@ -69,7 +69,9 @@ export default class AdoptionList extends React.Component {
       },
       body: userString,
     })
-      .then(() => this.getPeople())
+      .then(() => {
+        this.getPeople();
+      })
       .catch((error) => {
         console.error({ error });
       });

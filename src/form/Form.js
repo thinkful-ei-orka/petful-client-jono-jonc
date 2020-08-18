@@ -12,6 +12,7 @@ function Form(props) {
     event.target.userName.value = '';
     //   this.setState({ userName: name, isInline: true });
     context.setContext({ userName: name, isInline: true });
+    removePerson();
     postPersonToLine(name);
   };
 
@@ -28,6 +29,13 @@ function Form(props) {
       body: userString,
     }).catch((error) => {
       console.error({ error });
+    });
+  };
+  const removePerson = () => {
+    return fetch(`${config.REACT_APP_API_ENDPOINT}/people`, {
+      method: 'DELETE',
+    }).then(() => {
+      context.getPeople();
     });
   };
 
